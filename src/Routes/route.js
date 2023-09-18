@@ -13,6 +13,8 @@ Router.post("/role", Controller.Roleuser);
 Router.get("/getallrole", Controller.getRoleuser);
 Router.post("/:userId/community", Middleware.jwtValidation, Middleware.authorization, Controller.createCommunity);
 Router.get("/:userId/getallcommunity", Middleware.jwtValidation, Middleware.authorization, Controller.GetCommunity);
+Router.get("/:userId/getcommyownedmunity", Middleware.jwtValidation, Middleware.authorization, Controller.GetmyOwnedCommunity);
+// Router.get("/:communityId/getallmember", Middleware.jwtValidation, Controller.GetmyOwnedCommunity);
 
 
 

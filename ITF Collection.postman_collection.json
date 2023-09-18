@@ -1,0 +1,227 @@
+{
+	"info": {
+		"_postman_id": "6c8fd33b-12e7-483d-b695-de3682047e6c",
+		"name": "ITF Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26708201",
+		"_collection_link": "https://bold-trinity-207194.postman.co/workspace/My-Workspace~36b7cbb9-1c45-4037-82ee-ec480d2654e3/collection/26708201-6c8fd33b-12e7-483d-b695-de3682047e6c?action=share&source=collection_link&creator=26708201"
+	},
+	"item": [
+		{
+			"name": "Signup User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Prdaumya Banke\",\r\n    \"email\": \"pradumgurjar@gmail.com\",\r\n    \"password\": \"pradum@123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/createUser",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"createUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Login",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiItMTIzNzE4MTIzOSIsImlhdCI6MTY5NTAzMjMwMX0.NmMVHuTFPj2Udl5X8OamUY5EU459PB7ZJVBEBGRFZig",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"pradumgurjar@gmail.com\",\r\n    \"password\": \"pradum@123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/userLogin",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"userLogin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiItMTIzNzE4MTIzOSIsImlhdCI6MTY5NTAzMjMwMX0.NmMVHuTFPj2Udl5X8OamUY5EU459PB7ZJVBEBGRFZig",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/getuser",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"getuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Community",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiItMTIzNzE4MTIzOSIsImlhdCI6MTY5NTAzMjMwMX0.NmMVHuTFPj2Udl5X8OamUY5EU459PB7ZJVBEBGRFZig",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Westworld\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/-1237181239/community",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"-1237181239",
+						"community"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Community",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiItMTIzNzE4MTIzOSIsImlhdCI6MTY5NTAzMjMwMX0.NmMVHuTFPj2Udl5X8OamUY5EU459PB7ZJVBEBGRFZig",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/-1237181239/getallcommunity?page=1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"-1237181239",
+						"getallcommunity"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Role",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Community Admin 3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/role",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"role"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Role",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/getallrole?page=1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"getallrole"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

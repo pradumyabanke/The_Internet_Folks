@@ -5,6 +5,7 @@ const RoleUser = require("../module/Role");
 
 const CommunityModel = require("../module/Community");
 
+
 //===================== [ Create User ] =====================/
 
 const createUser = async function (req, res) {
@@ -176,6 +177,7 @@ const getRoleuser = async function (req, res) {
 
 //=====================[ create Community ]==================/
 const generateUniqueId = require('../module/user');
+const { name } = require("ejs");
 
 const communities = [];
 
@@ -188,21 +190,14 @@ const createCommunity = async function (req, res) {
         const slug = name.toLowerCase().replace(/\s+/g, '-');
 
         const community = {
-            id: generateUniqueId(),
             name,
             slug,
             owner: userId,
         };
 
         const New_Community = await CommunityModel.create(community);
-        const member = {
-            user_id: userId,
-            role: 'Community Admin',
-        };
-        community.members = [member];
-
-        communities.push(community);
-        res.status(201).json({ status: true, content: { data: community } });
+       
+        res.status(201).json({ status: true, content: { data: New_Community } });
     } catch (error) {
         console.error('Error creating community:', error);
         res.status(400).json({ status: false, error: 'Community not Found' });
@@ -219,7 +214,37 @@ const GetCommunity = async function (req, res) {
 
         const total = await CommunityModel.countDocuments();
 
-        const communities = await CommunityModel.find({ owner: userId})
+        const communities = await CommunityModel.find({ owner: userId })
+            .skip(skip)
+            .limit(perPage)
+            .lean();
+
+        // const comm = await CreateModel.findOne({ _id: userId, name: name });
+        // console.log(comm)
+
+        const meta = {
+            total,
+            pages: Math.ceil(total / perPage),
+            page: parseInt(page),
+        };
+
+        res.status(200).json({ status: true, content: { data: communities, meta } });
+    } catch (error) {
+        console.error('Error fetching communities:', error);
+        res.status(400).json({ status: false, error: 'Community Not Get For this User' });
+    }
+};
+
+//======================[ Get my Owned Community ]==========/
+const GetmyOwnedCommunity = async function (req, res) {
+    try {
+        const userId = req.params.userId;
+        const { page = 1, perPage = 10 } = req.query;
+        const skip = (page - 1) * perPage;
+
+        const total = await CommunityModel.countDocuments();
+
+        const communities = await CommunityModel.findOne({ owner: userId })
             .skip(skip)
             .limit(perPage)
             .lean();
@@ -237,28 +262,53 @@ const GetCommunity = async function (req, res) {
     }
 };
 
+//======================[ Get All Member ]==================/
+// const GetallMember = async function (req, res) {
+//     const userId = req.params.userId;
+//     console.log(userId)
+//     const community = CommunityModel.find(item => item.community === userId);
+  
+//     if (!community) {
+//       return res.status(404).json({ status: false, error: 'Community not found' });
+//     }
+  
+//     const filteredData = CommunityModel.content.data.map(item => ({
+//       id: item.id,
+//       community: item.community,
+//       user: {
+//         id: item.user.id,
+//         name: item.user.name
+//       },
+//       role: {
+//         id: item.role.id,
+//         name: item.role.name
+//       },
+//       created_at: item.created_at
+//     }));
+  
+//     res.status(200).json({ status: true, content: { ...CommunityModel.content, data: filteredData } });
+//   };
 
 //======================[ Post Member ]==========================/
 const PostMember = async function (req, res) {
     try {
-        
-         // Simulate fetching community members
-    const communityMembers =  [
-        {
-          userId: responseData.content.data.user,
-          role: responseData.content.data.role,
-          createdAt: responseData.content.data.created_at,
-        },
-       
-      ];
-        const newUser = req.body.newUser; 
-    
+
+        const communityMembers = [
+            {
+                userId: responseData.content.data.user,
+                role: responseData.content.data.role,
+                createdAt: responseData.content.data.created_at,
+            },
+
+        ];
+        const newUser = req.body.newUser;
+
         res.json({ status: true, message: 'User added as a member', communityMembers });
-      } catch (error) {
+    } catch (error) {
         console.error(error);
         res.status(500).json({ status: false, message: 'Failed to add user as a member' });
-      }
-    };
+    }
+};
 
 
 module.exports = {
@@ -269,5 +319,7 @@ module.exports = {
     getRoleuser,
     createCommunity,
     GetCommunity,
+    GetmyOwnedCommunity,
+    // GetallMember,
     PostMember,
 };

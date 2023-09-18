@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-//******************[authentication]************************//
+//*********************[ Authentication ]************************//
 
 const jwtValidation = async function (req, res, next) {
   try {
@@ -29,7 +29,7 @@ const jwtValidation = async function (req, res, next) {
   }
 };
 
-//******************[authorization]******************//
+//*********************[ Authorization ]*******************//
 
 const authorization = async function (req, res, next) {
   try {
